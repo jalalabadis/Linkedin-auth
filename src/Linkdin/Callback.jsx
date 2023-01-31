@@ -7,8 +7,13 @@ function Callback() {
   const [Code] = useState(searchparms.get('code'));
 useEffect(()=>{
 if(Code){
+  var JsonsData = {
+    'code': Code,
+    'id':54,
+    'action':'do_logout'
+};
   if (window.opener != null && !window.opener.closed) {
-  window.opener.postMessage(Code, '*');
+  window.opener.postMessage(JSON.stringify(JsonsData), '*');
   }
   window.close();
 }

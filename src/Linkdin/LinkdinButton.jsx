@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import linkedin from 'react-linkedin-login-oauth2/assets/linkedin.png';
+import '../Linkdin/Linkedin.css'
 import {  useNavigate } from 'react-router-dom';
 
 function LinkdinButton() {
@@ -38,9 +38,10 @@ useEffect(()=>{
     window.addEventListener( "message",function (e) {
       if(e.origin === '/callback'){ return; }
       if(typeof e.data !== 'object' && e.data !== null){
-        console.log(e.data);
-        Navigate('/user');
+        const myObj = JSON.parse(e.data);
+        console.log(myObj.code);
       sessionStorage.setItem('Authorization', e.data);
+      Navigate('/user');
     }}, false);
 },[Authorization, Navigate]);
 
@@ -48,12 +49,8 @@ useEffect(()=>{
 
   return (
 
-  <img
-  onClick={linkedInLogin}
-  src={linkedin}
-  alt="Sign in with Linked In"
-  style={{ maxWidth: '180px', cursor: 'pointer' }}
-/>
+    <div  onClick={linkedInLogin} className="social-button" id="linkedin-connect"> <span>Connect with LinkedIn</span></div>
+
   )
 }
 
